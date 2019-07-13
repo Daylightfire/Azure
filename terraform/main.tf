@@ -11,18 +11,21 @@ provider "azurerm" {
 
 module "network" {
   source = "/mnt/d/WorkProjects/Azure/terraform/modules/network"
-  address_space = "${var.address_space}"
-  dns_servers   = "${var.dns_servers}"
-  resource_group_name   = "${var.resource_group_name}"
-  location      = "${var.location}"
-  hubsubnet_name    = "${var.hubsubnet_name}"
-  hubsubnet_prefix  = "${var.hubsubnet_prefix}"
-  pressubnet_name   = "${var.pressubnet_name}"
-  pressubnet_prefix = "${var.pressubnet_prefix}"
-  appsubnet_name    = "${var.appsubnet_name}"
-  appsubnet_prefix  = "${var.appsubnet_prefix}"
-  datasubnet_name   = "${var.datasubnet_name}"
-  datasubnet_prefix = "${var.datasubnet_prefix}"
+  address_space           = "${var.address_space}"
+  dns_servers             = "${var.dns_servers}"
+  resource_group_name     = "${var.resource_group_name}"
+  location                = "${var.location}"
+  hubsubnet_name          = "${var.hubsubnet_name}"
+  hubsubnet_prefix        = "${var.hubsubnet_prefix}"
+  pressubnet_name         = "${var.pressubnet_name}"
+  pressubnet_prefix       = "${var.pressubnet_prefix}"
+  appsubnet_name          = "${var.appsubnet_name}"
+  appsubnet_prefix        = "${var.appsubnet_prefix}"
+  datasubnet_name         = "${var.datasubnet_name}"
+  datasubnet_prefix       = "${var.datasubnet_prefix}"
+  jumpext                 = "${var.jumpext}"
+  jump_private_ip_address = "${var.jump_private_ip_address}"
+  hubrdp                  = "${var.hubrdp}"
 }
 
 ########################################################
@@ -38,10 +41,13 @@ module "hubservers" {
   resource_group_name           = "${var.resource_group_name}"
   location                      = "${var.location}"
   jump_prefix                   = "${var.jump_prefix}"
+  dc1_prefix                    = "${var.dc1_prefix}"
   hub_subnet_id                 = "${module.network.hubsubnet_subnet_id}"
   jump_private_ip_address       = "${var.jump_private_ip_address}"
+  dc1_private_ip_address        = "${var.dc1_private_ip_address}"
   active_directory_domain       = "rootops.local"
   active_directory_netbios_name = "rootops"
   admin_username                = "${var.admin_username}"
   admin_password                = "${var.admin_password}"
+
 }

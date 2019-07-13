@@ -1,3 +1,9 @@
+#################################################################
+##########
+#   This module sets up the resource group, Virtual Network and its Subnets
+##########
+#################################################################
+
 resource "azurerm_resource_group" "network" {
     name = "${var.resource_group_name}"
     location    = "${var.location}"
@@ -20,6 +26,7 @@ resource "azurerm_subnet" "hub-subnet" {
     resource_group_name     = "${azurerm_resource_group.network.name}"
     virtual_network_name    = "${azurerm_virtual_network.main.name}"
     address_prefix          = "${var.hubsubnet_prefix}"
+    network_security_group_id   = "${azurerm_network_security_group.hub-sec.id}"
 }
 
 resource "azurerm_subnet" "pres-subnet" {

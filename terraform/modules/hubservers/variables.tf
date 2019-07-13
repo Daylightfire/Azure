@@ -24,10 +24,10 @@ variable "jump_private_ip_address" {}
 
 
 # active directory
-#
-#variable "dc1_prefix" {}
 
-#variable "dc1_private_ip_address" {}
+variable "dc1_prefix" {}
+
+variable "dc1_private_ip_address" {}
 
 #variable "dc1_subnet_id" {}
 

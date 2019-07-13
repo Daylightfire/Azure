@@ -1,6 +1,8 @@
-#######################################################
-#   Main Var file
-#######################################################
+#################################################################
+##########
+#   Main Variable file
+##########
+#################################################################
 
 #   Generic info
 variable "location" {
@@ -11,6 +13,7 @@ variable "resource_group_name" {
     description = "Default Resource Group"
     default     = "rg-poc"
 }
+
 #######################################################
 #   Network
 #######################################################
@@ -53,6 +56,15 @@ variable "datasubnet_name" {
 
 variable "datasubnet_prefix" {
     default = "10.1.3.0/24"
+}
+
+# NSGs
+
+variable "jumpext" {
+    default = "externalaccess"
+}
+variable "hubrdp" {
+    default = "hubrdpaccess"
 }
 
 #######################################################
