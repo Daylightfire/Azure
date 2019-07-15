@@ -14,6 +14,10 @@ variable "resource_group_name" {
     default     = "rg-poc"
 }
 
+variable "active_directory_domain"  {
+    default       = "rootops.local"
+}
+
 #######################################################
 #   Network
 #######################################################
@@ -67,6 +71,16 @@ variable "hubrdp" {
     default = "hubrdpaccess"
 }
 
+variable "presrdp" {
+    default = "presaccess"
+}
+
+variable "datardp" {
+    default = "dataaccess"  
+}
+
+
+
 #######################################################
 # Hub Vars
 #######################################################
@@ -98,11 +112,43 @@ variable "dc1_private_ip_address" {
 }
 
 
+#######################################################
+# pres Vars
+#######################################################
 
 
 
 
+# Web Server
+variable "web_prefix" {
+    default     = "webbox"
+}
 
+variable "web_private_ip_address" {
+    default = "10.1.1.5"
+    }
+
+
+
+#######################################################
+# sql vars
+#######################################################
+
+variable "sql_prefix" {
+    default     = "sqlpoc"
+}
+
+variable "lbprivate_ip_address" {
+    default     = "10.1.3.5"
+}
+
+variable "sqlvmcount" {
+  default       = "2"
+}
+
+variable "sqlpip_prefix" {
+    default     = "10.1.3."  
+}
 
 
 

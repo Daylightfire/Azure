@@ -26,6 +26,8 @@ module "network" {
   jumpext                 = "${var.jumpext}"
   jump_private_ip_address = "${var.jump_private_ip_address}"
   hubrdp                  = "${var.hubrdp}"
+  presrdp                 = "${var.presrdp}"
+  datardp                 = "${var.datardp}"
 }
 
 ########################################################
@@ -33,8 +35,6 @@ module "network" {
 #   Create Hub Layer Servers
 ###########
 ########################################################
-
-# Jump Server
 
 module "hubservers" {
   source = "/mnt/d/WorkProjects/Azure/terraform/modules/hubservers"
@@ -45,9 +45,71 @@ module "hubservers" {
   hub_subnet_id                 = "${module.network.hubsubnet_subnet_id}"
   jump_private_ip_address       = "${var.jump_private_ip_address}"
   dc1_private_ip_address        = "${var.dc1_private_ip_address}"
+  active_directory_domain       = "${var.active_directory_domain}"
+  active_directory_netbios_name = "rootops"
+  admin_username                = "${var.admin_username}"
+  admin_password                = "${var.admin_password}"
+  vmname                        = "${var.dc1_prefix}-01"
+
+}
+
+/*module "promote-dc" {
+  source  = "/mnt/d/WorkProjects/Azure/terraform/modules/promotedc"
   active_directory_domain       = "rootops.local"
+  active_directory_netbios_name = "rootops"
+  admin_password                = "${var.admin_password}"
+  location                      = "${var.location}"
+  resource_group_name           = "${var.resource_group_name}"
+  vmname                        = "${var.dc1_prefix}-01"
+  
+}*/
+
+
+########################################################
+###########
+#   Create pres Layer Servers
+###########
+########################################################
+
+module "presservers" {
+  source = "/mnt/d/WorkProjects/Azure/terraform/modules/presservers"
+  resource_group_name           = "${var.resource_group_name}"
+  location                      = "${var.location}"
+  web_prefix                    = "${var.web_prefix}"
+  pres_subnet_id                = "${module.network.pressubnet_subnet_id}"
+  web_private_ip_address        = "${var.web_private_ip_address}"
+  active_directory_domain       = "${var.active_directory_domain}"
+  active_directory_username     = "${var.admin_username}"
+  active_directory_password     = "${var.admin_password}"
   active_directory_netbios_name = "rootops"
   admin_username                = "${var.admin_username}"
   admin_password                = "${var.admin_password}"
 
+  
+}
+
+
+
+
+########################################################
+###########
+#   Create data Layer Servers
+###########
+########################################################
+
+module "sql-vm" {
+  source = "/mnt/d/WorkProjects/Azure/terraform/modules/sql-vm"
+  resource_group_name = "${var.resource_group_name}"
+  location            = "${var.location}"
+  sql_prefix          = "${var.sql_prefix}"
+  sqlpip_prefix       = "${var.sqlpip_prefix}"
+  data_subnet_id           = "${module.network.datasubnet_subnet_id}"
+  active_directory_domain       = "${var.active_directory_domain}"
+  active_directory_username     = "${var.admin_username}"
+  active_directory_password     = "${var.admin_password}"
+  active_directory_netbios_name = "rootops"
+  admin_username                = "${var.admin_username}"
+  admin_password                = "${var.admin_password}"
+  sqlvmcount                    = "${var.sqlvmcount}"
+  lbprivate_ip_address          = "${var.lbprivate_ip_address}"  
 }

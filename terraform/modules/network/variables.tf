@@ -30,6 +30,9 @@ variable "jump_private_ip_address" {}
 variable "hubrdp" {}
 variable "jumpext" {}
 
+variable "presrdp" {}
+variable "datardp" {}
+
 
 
 

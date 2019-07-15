@@ -34,6 +34,7 @@ resource "azurerm_subnet" "pres-subnet" {
     resource_group_name     = "${azurerm_resource_group.network.name}"
     virtual_network_name    = "${azurerm_virtual_network.main.name}"
     address_prefix          = "${var.pressubnet_prefix}"
+    network_security_group_id   = "${azurerm_network_security_group.pres-sec.id}"
 }
 
 resource "azurerm_subnet" "app-subnet" {
@@ -48,5 +49,6 @@ resource "azurerm_subnet" "data-subnet" {
     resource_group_name     = "${azurerm_resource_group.network.name}"
     virtual_network_name    = "${azurerm_virtual_network.main.name}"
     address_prefix          = "${var.datasubnet_prefix}" 
+    network_security_group_id   = "${azurerm_network_security_group.data-sec.id}"
 }
 

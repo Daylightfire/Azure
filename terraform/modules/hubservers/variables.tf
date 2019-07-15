@@ -34,6 +34,9 @@ variable "dc1_private_ip_address" {}
 variable "active_directory_domain" {}
 variable "active_directory_netbios_name" {}
 
+variable "vmname" {}
+
+
 
 
 
